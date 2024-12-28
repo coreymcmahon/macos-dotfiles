@@ -4,7 +4,7 @@
 
 
 [aws]
-symbol = ""
+symbol = " "
 format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
 
 [buf]
