@@ -25,7 +25,8 @@ defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
 # Enable Thai Keyboard Layout
 LAYOUT_ID="-26624"
 LAYOUT_NAME="Thai"
-if defaults read com.apple.HIToolbox AppleEnabledInputSources 2>/dev/null | grep -q "\"KeyboardLayout ID\" = $LAYOUT_ID"; then
+if defaults read com.apple.HIToolbox AppleEnabledInputSources 2>/dev/null \
+  | grep -Eq "\"KeyboardLayout ID\" = (\"$LAYOUT_ID\"|$LAYOUT_ID)"; then
     echo "$LAYOUT_NAME keyboard layout already enabled."
 else
     echo "Adding $LAYOUT_NAME keyboard layout..."
