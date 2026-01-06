@@ -1,6 +1,9 @@
 #!/bin/sh
 
-HOSTNAME="Coreys-MBP"
+##
+# Sets the computer hostname
+
+HOSTNAME="${1:-Coreys-MBP}"
 
 sudo scutil --set ComputerName "$HOSTNAME"
 sudo scutil --set HostName "$HOSTNAME"

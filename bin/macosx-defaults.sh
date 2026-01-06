@@ -18,30 +18,10 @@ defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
 # Install System data files & security updates
 defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
 
-
-##
-# Input Sources
-
-# Enable Thai Keyboard Layout
-LAYOUT_ID="-26624"
-LAYOUT_NAME="Thai"
-if defaults read com.apple.HIToolbox AppleEnabledInputSources 2>/dev/null \
-  | grep -Eq "\"KeyboardLayout ID\" = (\"$LAYOUT_ID\"|$LAYOUT_ID)"; then
-    echo "$LAYOUT_NAME keyboard layout already enabled."
-else
-    echo "Adding $LAYOUT_NAME keyboard layout..."
-    defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '{
-        InputSourceKind = "Keyboard Layout";
-        "KeyboardLayout ID" = '"$LAYOUT_ID"';
-        "KeyboardLayout Name" = "'"$LAYOUT_NAME"'";
-    }'
-    echo "$LAYOUT_NAME keyboard layout added"
-fi
-
 # Show input method selector in tray
 defaults write com.apple.TextInputMenu visible -bool true
 defaults write com.apple.TextInputMenuAgent "NSStatusItem Visible Item-0" -bool true
-
+# defaults write com.apple.systemuiserver menuExtras -array-add "/System/Library/CoreServices/Menu Extras/TextInput.menu" # TODO check if needed
 
 ##
 # Text and typing
@@ -166,13 +146,22 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 
 ##
-# Trackpad
+# Mouse and trackpad
 
 # Enable tap to click (Trackpad), also for login menu
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write com.apple.AppleMultitouchTrackpad Clicking 1
+
+# Secondary click (two-finger)
+defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+defaults -currentHost write -g com.apple.trackpad.enableSecondaryClick -bool true :contentReference[oaicite:3]{index=3}
+
+# Mouse and trackpad speed
+defaults write -g com.apple.mouse.scaling -float 2.0
+defaults write -g com.apple.trackpad.scaling -float 1.5
 
 
 ##
@@ -209,5 +198,5 @@ chflags nohidden ~/Library
 
 ##
 # Kill affected applications and services
-for app in Safari Finder Dock Mail SystemUIServer TextInputMenuAgent; do killall "$app" >/dev/null 2>&1; done
+for app in Finder Dock SystemUIServer screencaptureui TextInputMenuAgent; do killall "$app" >/dev/null 2>&1; done
 killall cfprefsd

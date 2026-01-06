@@ -224,11 +224,3 @@ W = ['secondary', 'main']
 X = ['secondary', 'main']
 Y = ['secondary', 'main']
 Z = ['secondary', 'main']
-
-# Fix tiling in Ghostty # TODO seems broken
-[[on-window-detected]]
-if.app-id="com.mitchellh.ghostty"
-# "Note that this will cause the Ghostty window to be floating on initial startup. You can manually unfloat the window (alt+shift+; followed by f by default)."
-run= [
-  "layout floating",
-]
