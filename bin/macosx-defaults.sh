@@ -27,7 +27,7 @@ defaults write com.apple.TextInputMenuAgent "NSStatusItem Visible Item-0" -bool 
 # Text and typing
 
 # Remove all annoying text replacements (eg. CP, TM, etc)
-defaults delete -g NSUserDictionaryReplacementItems
+defaults delete -g NSUserDictionaryReplacementItems 2>/dev/null || true
 
 # Disable annoying autocorrections/substitutions
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false

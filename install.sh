@@ -23,7 +23,11 @@ echo "======================================"
 log_step "Installing Homebrew and packages"
 "$BIN_DIR/homebrew.sh"
 
-# 2. Set hostname (optional - prompts for hostname)
+# 2. Stow dotfiles
+log_step "Stowing dotfiles"
+"$BIN_DIR/stow.sh"
+
+# 3. Set hostname (optional - prompts for hostname)
 log_step "Setting hostname"
 read -p "Enter hostname (leave blank to skip): " hostname
 if [[ -n "$hostname" ]]; then
@@ -32,19 +36,19 @@ else
     log_info "Skipping hostname setup"
 fi
 
-# 3. Apply macOS defaults
+# 4. Apply macOS defaults
 log_step "Applying macOS defaults"
 "$BIN_DIR/macosx-defaults.sh"
 
-# 4. Clear the Dock
+# 5. Clear the Dock
 log_step "Clearing Dock"
 "$BIN_DIR/clear-dock.sh"
 
-# 5. Add Thai keyboard layout
+# 6. Add Thai keyboard layout
 log_step "Adding Thai keyboard layout"
 "$BIN_DIR/add-thai-layout.sh"
 
-# 6. Configure Brave Browser (optional - only if Brave is installed)
+# 7. Configure Brave Browser (optional - only if Brave is installed)
 if [[ -d "$HOME/Library/Application Support/BraveSoftware/Brave-Browser" ]]; then
     log_step "Configuring Brave Browser"
     "$BIN_DIR/setup-brave.sh"

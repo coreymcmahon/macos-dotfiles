@@ -177,8 +177,6 @@ patch_profile() {
 
     log_info "Patching profile: $profile_name"
 
-    cp "$prefs" "$prefs.backup.$(date +%s)"
-
     jq '
         # === TOOLBAR CLEANUP ===
         .brave.ai_chat.show_toolbar_button = false |
