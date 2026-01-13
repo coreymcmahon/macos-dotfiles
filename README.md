@@ -3,8 +3,8 @@
 ## Usage
 
 ```bash
-# Configure sensible defaults
-./macosx-defaults.sh
+# Install everything and configure sensible defaults
+./install.sh
 
 # Install Gnu Stow
 brew install stow
