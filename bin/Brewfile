@@ -15,7 +15,7 @@ brew "wget"
 brew "zellij"
 
 cask "1password"
-cask "aerospace"
+cask "nikitabobko/tap/aerospace"
 cask "alacritty"
 cask "brave-browser"
 cask "dropbox"
