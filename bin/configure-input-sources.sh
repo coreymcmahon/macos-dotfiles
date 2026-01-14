@@ -4,7 +4,7 @@ set -euo pipefail
 ##
 # Configure keyboard input sources (US, British, Thai) using TISEnableInputSource API
 
-swift << 'EOF'
+swift - << 'EOF'
 import Carbon
 
 let layouts = [

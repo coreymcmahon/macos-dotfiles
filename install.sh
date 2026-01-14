@@ -42,9 +42,9 @@ log_step "Setting hostname"
 log_step "Applying macOS defaults"
 "$BIN_DIR/macosx-defaults.sh"
 
-# 5. Clear the Dock
-log_step "Clearing Dock"
-"$BIN_DIR/clear-dock.sh"
+# 5. Configure the Dock
+log_step "Configuring Dock"
+"$BIN_DIR/configure-dock.sh"
 
 # 6. Configure input sources
 log_step "Configuring input sources"
