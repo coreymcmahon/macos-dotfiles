@@ -34,14 +34,9 @@ fi
 log_step "Stowing dotfiles"
 "$BIN_DIR/stow.sh"
 
-# 3. Set hostname (optional - prompts for hostname)
+# 3. Set hostname (uses argument or default from set-hostname.sh)
 log_step "Setting hostname"
-read -p "Enter hostname (leave blank to skip): " hostname
-if [[ -n "$hostname" ]]; then
-    "$BIN_DIR/set-hostname.sh" "$hostname"
-else
-    log_info "Skipping hostname setup"
-fi
+"$BIN_DIR/set-hostname.sh" "${1:-}"
 
 # 4. Apply macOS defaults
 log_step "Applying macOS defaults"

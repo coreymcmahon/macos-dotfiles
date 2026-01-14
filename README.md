@@ -19,5 +19,5 @@ cd macos-dotfiles
 
 ## Installation
 ```bash
-./install.sh
+./install.sh [hostname]  # defaults to Coreys-MacBook-Pro
 ```
