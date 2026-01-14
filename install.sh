@@ -50,7 +50,11 @@ log_step "Configuring Dock"
 log_step "Configuring input sources"
 "$BIN_DIR/configure-input-sources.sh"
 
-# 7. Configure Brave Browser (optional - only if Brave is installed)
+# 7. Configure login items
+log_step "Configuring login items"
+"$BIN_DIR/configure-login-items.sh"
+
+# 8. Configure Brave Browser (optional - only if Brave is installed)
 if [[ -d "$HOME/Library/Application Support/BraveSoftware/Brave-Browser" ]]; then
     log_step "Configuring Brave Browser"
     "$BIN_DIR/setup-brave.sh"
