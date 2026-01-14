@@ -20,11 +20,13 @@ alias ga="git add"
 alias gd="git diff"
 alias gdc="git diff --cached"
 alias gc="git commit"
+alias gch="git checkout"
 alias gs="git status"
+alias gb="git branch -v"
 alias pull="git pull --no-rebase origin"
 alias push="git push origin"
-alias pullc="git pull --no-rebase origin $(git rev-parse --abbrev-ref HEAD)"
-alias pushc="git push origin $(git rev-parse --abbrev-ref HEAD)"
+pullc() { git pull --no-rebase origin "$(git rev-parse --abbrev-ref HEAD)"; }
+pushc() { git push origin "$(git rev-parse --abbrev-ref HEAD)"; }
 alias co="git checkout"
 # Laravel
 alias s="./vendor/bin/sail"
