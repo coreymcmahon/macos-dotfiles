@@ -23,6 +23,13 @@ echo "======================================"
 log_step "Installing Homebrew and packages"
 "$BIN_DIR/homebrew.sh"
 
+# Ensure Homebrew is in PATH for subsequent steps
+if [ -f /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -f /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # 2. Stow dotfiles
 log_step "Stowing dotfiles"
 "$BIN_DIR/stow.sh"
