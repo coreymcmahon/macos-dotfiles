@@ -46,9 +46,9 @@ log_step "Applying macOS defaults"
 log_step "Clearing Dock"
 "$BIN_DIR/clear-dock.sh"
 
-# 6. Add Thai keyboard layout
-log_step "Adding Thai keyboard layout"
-"$BIN_DIR/add-thai-layout.sh"
+# 6. Configure input sources
+log_step "Configuring input sources"
+"$BIN_DIR/configure-input-sources.sh"
 
 # 7. Configure Brave Browser (optional - only if Brave is installed)
 if [[ -d "$HOME/Library/Application Support/BraveSoftware/Brave-Browser" ]]; then
