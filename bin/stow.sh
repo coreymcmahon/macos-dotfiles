@@ -8,7 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DOTFILES_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Packages to stow
-PACKAGES=(aerospace alacritty starship tmux zsh)
+PACKAGES=(aerospace alacritty scripts starship tmux zsh)
 
 # Check if a package is already stowed by verifying symlinks exist
 is_stowed() {
