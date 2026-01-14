@@ -2,32 +2,38 @@
 set -euo pipefail
 
 ##
-# Configure keyboard input sources (US, British, Thai)
+# Configure keyboard input sources (US, British, Thai) using TISEnableInputSource API
 
-LAYOUTS="U.S.:0 British:2 Thai:-23"
+swift << 'EOF'
+import Carbon
 
-has_layout() {
-    defaults -currentHost read com.apple.HIToolbox AppleEnabledInputSources 2>/dev/null \
-        | grep -q "KeyboardLayout ID.*= $1"
+let layouts = [
+    "com.apple.keylayout.US",
+    "com.apple.keylayout.British",
+    "com.apple.keylayout.Thai"
+]
+
+for layoutID in layouts {
+    let filter = [kTISPropertyInputSourceID as String: layoutID] as CFDictionary
+    guard let sources = TISCreateInputSourceList(filter, true)?.takeRetainedValue() as? [TISInputSource],
+          let source = sources.first else {
+        print("[SKIP] \(layoutID) not found")
+        continue
+    }
+
+    let err = TISEnableInputSource(source)
+    if err == noErr {
+        print("[OK] \(layoutID)")
+    } else {
+        print("[ERR] \(layoutID) - error \(err)")
+    }
 }
 
-add_layout() {
-    local name="$1" id="$2"
-    for key in AppleEnabledInputSources AppleInputSourceHistory AppleSelectedInputSources; do
-        defaults -currentHost write com.apple.HIToolbox "$key" -array-add \
-            "<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>$id</integer><key>KeyboardLayout Name</key><string>$name</string></dict>"
-    done
+// Select US as default
+let usFilter = [kTISPropertyInputSourceID as String: "com.apple.keylayout.US"] as CFDictionary
+if let sources = TISCreateInputSourceList(usFilter, false)?.takeRetainedValue() as? [TISInputSource],
+   let usSource = sources.first {
+    TISSelectInputSource(usSource)
+    print("[DEFAULT] US selected")
 }
-
-for layout in $LAYOUTS; do
-    name="${layout%:*}"
-    id="${layout#*:}"
-    if has_layout "$id"; then
-        echo "[OK] $name already configured"
-    else
-        echo "[ADD] $name"
-        add_layout "$name" "$id"
-    fi
-done
-
-echo "Log out/in for changes to take effect."
+EOF
