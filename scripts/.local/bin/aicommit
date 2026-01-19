@@ -28,7 +28,7 @@ if git diff --cached --quiet; then
 fi
 
 # Build prompt
-PROMPT="Generate a concise git commit message for these changes. Output only the commit message, nothing else."
+PROMPT="Generate a concise git commit message for these changes. Output only the commit message, nothing else. DO NOT add a Claude watermark to the commit message."
 if [[ -n "${1:-}" ]]; then
     PROMPT="$PROMPT Additional context: $1"
 fi
