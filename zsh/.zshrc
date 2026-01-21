@@ -41,6 +41,18 @@ alias nrd="npm run dev"
 alias kittyssh="kitten ssh"
 
 ###
+# Key bindings for word navigation
+# Ctrl+Left/Right to move by word
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
+# Alt+Left/Right to move by word (some terminals use this)
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;3C" forward-word
+# macOS Option+Left/Right
+bindkey "^[b" backward-word
+bindkey "^[f" forward-word
+
+###
 # GPG
 GPG_TTY=$(tty)
 export GPG_TTY
