@@ -30,31 +30,35 @@ elif [ -f /usr/local/bin/brew ]; then
     eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-# 2. Stow dotfiles
+# 2. Install language runtimes via Mise
+log_step "Installing language runtimes via Mise"
+"$BIN_DIR/setup-mise.sh"
+
+# 3. Stow dotfiles
 log_step "Stowing dotfiles"
 "$BIN_DIR/stow.sh"
 
-# 3. Set hostname (uses argument or default from set-hostname.sh)
+# 4. Set hostname (uses argument or default from set-hostname.sh)
 log_step "Setting hostname"
 "$BIN_DIR/set-hostname.sh" "${1:-}"
 
-# 4. Apply macOS defaults
+# 5. Apply macOS defaults
 log_step "Applying macOS defaults"
 "$BIN_DIR/macosx-defaults.sh"
 
-# 5. Configure the Dock
+# 6. Configure the Dock
 log_step "Configuring Dock"
 "$BIN_DIR/configure-dock.sh"
 
-# 6. Configure input sources
+# 7. Configure input sources
 log_step "Configuring input sources"
 "$BIN_DIR/configure-input-sources.sh"
 
-# 7. Configure login items
+# 8. Configure login items
 log_step "Configuring login items"
 "$BIN_DIR/configure-login-items.sh"
 
-# 8. Configure Brave Browser (optional - only if Brave is installed)
+# 9. Configure Brave Browser (optional - only if Brave is installed)
 if [[ -d "$HOME/Library/Application Support/BraveSoftware/Brave-Browser" ]]; then
     log_step "Configuring Brave Browser"
     "$BIN_DIR/setup-brave.sh"
