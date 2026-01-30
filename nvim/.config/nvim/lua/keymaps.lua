@@ -13,6 +13,8 @@ vim.keymap.set('n', '<leader>ff', function() require("telescope.builtin").find_f
 vim.keymap.set('n', '<leader>fg', function() require("telescope.builtin").live_grep() end, { desc = "Grep in files" })
 vim.keymap.set('n', '<leader>fb', function() require("telescope.builtin").buffers() end, { desc = "Show buffers" })
 vim.keymap.set('n', '<leader>fq', function() require("telescope.builtin").diagnostics() end, { desc = "Show fixlist" })
+vim.keymap.set('n', '<leader>fu', '<cmd>Telescope undo<cr>', { desc = "Undo tree" })
+vim.keymap.set('n', '<leader>fz', '<cmd>Telescope zoxide list<cr>', { desc = "Zoxide" })
 
 -- cp to copy to system clipboard
 vim.keymap.set({ 'n', "v" }, 'cp', '"+y')
