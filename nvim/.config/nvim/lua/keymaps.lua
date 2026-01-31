@@ -19,9 +19,6 @@ vim.keymap.set('n', '<leader>fz', '<cmd>Telescope zoxide list<cr>', { desc = "Zo
 -- cp to copy to system clipboard
 vim.keymap.set({ 'n', "v" }, 'cp', '"+y')
 
-----------------------
--- LazyVim keymaps ---
-
 -- better up/down
 -- navigates "visual" lines when no count is given, retains original behavior when a count is used.
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
