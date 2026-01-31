@@ -24,3 +24,6 @@ mise use --global php@8.4
 
 echo "Installing latest Node.js..."
 mise use --global node@latest
+
+echo "Installing tree-sitter..."
+mise use --global tree-sitter
