@@ -53,6 +53,16 @@ alias co="git checkout"
 alias s="./vendor/bin/sail"
 alias art="php artisan"
 alias ci="composer install"
+# lq: run the queue worker one job at a time, restarting so code changes are picked up
+lq() {
+    # Ctrl-C kills the worker, not the loop - trap it so one interrupt stops both.
+    # zsh scopes traps set inside a function to that function.
+    trap 'return' INT
+    while true; do
+        php artisan queue:work --once "$@"
+        sleep 1
+    done
+}
 # Neovim
 alias vi="nvim"
 alias vim="nvim"
