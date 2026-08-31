@@ -14,6 +14,25 @@ fi
 alias q=exit
 alias ss="TERM=xterm-256color ssh" # use when connecting to a server with a different TERM (Ghostty, Kitty, etc)
 alias killdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder" # flush local DNS cache
+# yolo: launch claude in a tmux top pane with a shell in the bottom pane
+yolo() {
+    local cmd="claude --dangerously-skip-permissions"
+    (( $# )) && cmd+=" ${(q)@}"
+
+    # Already inside tmux: add claude above the current shell rather than nesting
+    if [ -n "$TMUX" ]; then
+        tmux split-window -b -v -l 70% -c "$PWD" "$cmd"
+        return
+    fi
+
+    local session="yolo-${${PWD:t}//[.:]/_}"
+    if ! tmux has-session -t "=$session" 2>/dev/null; then
+        tmux new-session -d -s "$session" -c "$PWD" "$cmd"
+        tmux split-window -t "=$session:" -v -l 30% -c "$PWD"
+        tmux select-pane -t "=$session:.{top}"
+    fi
+    tmux attach-session -t "=$session"
+}
 # Git
 alias g=git
 alias ga="git add"
@@ -23,20 +42,24 @@ alias gc="git commit"
 alias gch="git checkout"
 alias gs="git status"
 alias gb="git branch -v"
+alias gl="git log"
 alias pull="git pull --no-rebase origin"
 alias push="git push origin"
 pullc() { git pull --no-rebase origin "$(git rev-parse --abbrev-ref HEAD)"; }
 pushc() { git push origin "$(git rev-parse --abbrev-ref HEAD)"; }
+alias ppc="pullc && pushc"
 alias co="git checkout"
 # Laravel
 alias s="./vendor/bin/sail"
 alias art="php artisan"
+alias ci="composer install"
 # Neovim
 alias vi="nvim"
 alias vim="nvim"
 # Node
 alias ni="npm install"
 alias nrd="npm run dev"
+alias nird="npm install && npm run dev"
 # Kitty
 alias kittyssh="kitten ssh"
 
@@ -64,4 +87,3 @@ code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
 ###
 # Starship
 eval "$(starship init zsh)"
-
