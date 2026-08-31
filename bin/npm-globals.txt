@@ -1,0 +1,24 @@
+# Global npm packages installed against the mise-managed Node.
+# One package per line; blank lines and # comments are ignored.
+#
+# Language servers here are the ones also wanted outside Neovim (CLI use,
+# other editors). Servers used only inside Neovim are installed by Mason.
+
+# Formatters / linters (used by editors and from the CLI)
+@fsouza/prettierd
+eslint_d
+
+# Language servers
+bash-language-server
+emmet-ls
+intelephense
+vscode-langservers-extracted
+@tailwindcss/language-server
+@vue/language-server
+
+# TypeScript toolchain
+typescript
+@vue/typescript-plugin
+
+# Misc
+npm-check-updates

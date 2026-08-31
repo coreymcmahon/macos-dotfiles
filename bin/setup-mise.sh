@@ -27,3 +27,17 @@ mise use --global node@latest
 
 echo "Installing tree-sitter..."
 mise use --global tree-sitter
+
+##
+# Install global npm packages against the mise-managed Node.
+# Replaces the old nvm default-packages mechanism, which mise has no equivalent for.
+
+NPM_GLOBALS="$(dirname "$0")/npm-globals.txt"
+if [ -f "$NPM_GLOBALS" ]; then
+    packages=$(grep -vE '^\s*(#|$)' "$NPM_GLOBALS" | tr '\n' ' ')
+    if [ -n "$packages" ]; then
+        echo "Installing global npm packages..."
+        # shellcheck disable=SC2086
+        mise exec node -- npm install --global $packages
+    fi
+fi
