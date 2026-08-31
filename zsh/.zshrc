@@ -85,5 +85,9 @@ export GPG_TTY
 code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
 
 ###
+# Mise
+eval "$(mise activate zsh)"
+
+###
 # Starship
 eval "$(starship init zsh)"
