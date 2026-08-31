@@ -5,6 +5,9 @@
 # PATH
 export PATH="$HOME/.local/bin:$PATH"
 
+# Composer global binaries (laravel-lsp, etc)
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+
 ###
 # Secrets
 # - Add export statements to .zshenv.secrets (e.g NPM_TOKEN)

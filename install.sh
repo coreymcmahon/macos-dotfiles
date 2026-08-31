@@ -34,31 +34,35 @@ fi
 log_step "Installing language runtimes via Mise"
 "$BIN_DIR/setup-mise.sh"
 
-# 3. Stow dotfiles
+# 3. Install global PHP tooling (Laravel LSP)
+log_step "Installing PHP tooling"
+"$BIN_DIR/setup-php-tools.sh"
+
+# 4. Stow dotfiles
 log_step "Stowing dotfiles"
 "$BIN_DIR/stow.sh"
 
-# 4. Set hostname (uses argument or default from set-hostname.sh)
+# 5. Set hostname (uses argument or default from set-hostname.sh)
 log_step "Setting hostname"
 "$BIN_DIR/set-hostname.sh" "${1:-}"
 
-# 5. Apply macOS defaults
+# 6. Apply macOS defaults
 log_step "Applying macOS defaults"
 "$BIN_DIR/macosx-defaults.sh"
 
-# 6. Configure the Dock
+# 7. Configure the Dock
 log_step "Configuring Dock"
 "$BIN_DIR/configure-dock.sh"
 
-# 7. Configure input sources
+# 8. Configure input sources
 log_step "Configuring input sources"
 "$BIN_DIR/configure-input-sources.sh"
 
-# 8. Configure login items
+# 9. Configure login items
 log_step "Configuring login items"
 "$BIN_DIR/configure-login-items.sh"
 
-# 9. Configure Brave Browser (optional - only if Brave is installed)
+# 10. Configure Brave Browser (optional - only if Brave is installed)
 if [[ -d "$HOME/Library/Application Support/BraveSoftware/Brave-Browser" ]]; then
     log_step "Configuring Brave Browser"
     "$BIN_DIR/setup-brave.sh"

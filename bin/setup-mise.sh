@@ -25,8 +25,6 @@ mise use --global php@8.4
 echo "Installing latest Node.js..."
 mise use --global node@latest
 
-echo "Installing tree-sitter..."
-mise use --global tree-sitter
 
 ##
 # Install global npm packages against the mise-managed Node.
@@ -34,7 +32,8 @@ mise use --global tree-sitter
 
 NPM_GLOBALS="$(dirname "$0")/npm-globals.txt"
 if [ -f "$NPM_GLOBALS" ]; then
-    packages=$(grep -vE '^\s*(#|$)' "$NPM_GLOBALS" | tr '\n' ' ')
+    # Strip inline comments and blank lines, then flatten to one line.
+    packages=$(sed -e 's/#.*//' -e 's/[[:space:]]*$//' "$NPM_GLOBALS" | grep -v '^$' | tr '\n' ' ')
     if [ -n "$packages" ]; then
         echo "Installing global npm packages..."
         # shellcheck disable=SC2086

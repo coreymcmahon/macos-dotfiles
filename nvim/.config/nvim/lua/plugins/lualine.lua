@@ -21,7 +21,14 @@ return {
         options = {
           theme = "auto",
           globalstatus = vim.o.laststatus == 3,
-          disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
+          disabled_filetypes = {
+            statusline = {
+              "dashboard",
+              "alpha",
+              "ministarter",
+              "snacks_dashboard",
+            },
+          },
         },
         sections = {
           lualine_a = { "mode" },
@@ -36,7 +43,12 @@ return {
                 hint = " ",
               },
             },
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            {
+              "filetype",
+              icon_only = true,
+              separator = "",
+              padding = { left = 1, right = 0 },
+            },
             { "filename", path = 1 },
           },
           lualine_x = {

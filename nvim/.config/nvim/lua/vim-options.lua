@@ -25,7 +25,7 @@ opt.grepprg = "rg --vimgrep" -- Use ripgrep as grep program
 opt.ignorecase = true -- Ignore case when searching
 opt.inccommand = "nosplit" -- preview incremental substitute
 opt.jumpoptions = "view" -- Keep cursor in the same position when jumping
-opt.laststatus = 3 -- Controls statusline visibility ; 3 == global statusline 
+opt.laststatus = 3 -- Controls statusline visibility ; 3 == global statusline
 opt.linebreak = true -- Wrap lines at convenient points
 opt.list = true -- Show some invisible characters (tabs, spaces)
 opt.mouse = "a" -- Enable mouse mode
@@ -35,7 +35,16 @@ opt.pumheight = 10 -- Controls popup menu height (and therefore max entries)
 opt.relativenumber = true -- Show relative line numbers
 opt.ruler = false -- Disable the default ruler
 opt.scrolloff = 4 -- Lines of context; Keeps lines/columns visible around cursor
-opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+opt.sessionoptions = {
+  "buffers",
+  "curdir",
+  "tabpages",
+  "winsize",
+  "help",
+  "globals",
+  "skiprtp",
+  "folds",
+}
 opt.shiftround = true -- Rounds indentation to shiftwidth
 opt.shiftwidth = 2 -- Size of an indent
 opt.shortmess:append({ W = true, I = true, c = true, C = true })

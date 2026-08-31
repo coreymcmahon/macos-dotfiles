@@ -1,24 +1,34 @@
 # Global npm packages installed against the mise-managed Node.
 # One package per line; blank lines and # comments are ignored.
 #
-# Language servers here are the ones also wanted outside Neovim (CLI use,
-# other editors). Servers used only inside Neovim are installed by Mason.
+# These replace the old nvm default-packages mechanism, which mise has no
+# equivalent for. The language servers here are the ones Neovim enables in
+# nvim/.config/nvim/lua/plugins/lsp.lua - the config deliberately does not use
+# Mason, so this file is the single source of truth for what gets installed.
 
-# Formatters / linters (used by editors and from the CLI)
+# Formatters / linters
 @fsouza/prettierd
 eslint_d
+blade-formatter               # Laravel Blade templates
 
 # Language servers
 bash-language-server
 emmet-ls
 intelephense
-vscode-langservers-extracted
+vscode-langservers-extracted  # provides jsonls, html, cssls, eslint
 @tailwindcss/language-server
-@vue/language-server
+@vue/language-server           # vue_ls, and bundles @vue/typescript-plugin
+@vtsls/language-server         # vtsls
 
 # TypeScript toolchain
-typescript
-@vue/typescript-plugin
+# PINNED to 5.x: typescript@latest is now 7.x (the Go rewrite), which dropped
+# the `ts.server` JS API that @vue/language-server 3.x needs. Installing 7.x
+# makes vue_ls crash on startup with
+#   TypeError: Cannot read properties of undefined (reading 'protocol')
+typescript@5
+
+# Required by nvim-treesitter (main branch) to compile parsers
+tree-sitter-cli
 
 # Misc
 npm-check-updates
