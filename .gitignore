@@ -1,0 +1,13 @@
+# Secrets - sourced by .zshrc / .zshenv, never tracked
+.zshrc.secrets
+.zshenv.secrets
+*.secrets
+
+# macOS
+.DS_Store
+
+# Neovim state that can appear inside the config package
+# (lazy-lock.json is deliberately tracked and must NOT be ignored)
+nvim/.config/nvim/.luarc.json
+nvim/.config/nvim/spell/
+nvim/.config/nvim/.netrwhist
