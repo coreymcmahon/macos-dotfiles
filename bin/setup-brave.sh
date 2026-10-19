@@ -85,11 +85,35 @@ sudo tee "$POLICY_FILE" > /dev/null << 'PLIST'
     <key>BraveNewsDisabled</key>
     <true/>
 
+    <!-- Local/on-device AI (semantic history search, model downloads) -->
+    <key>BraveLocalAIEnabled</key>
+    <false/>
+
+    <!-- Email Aliases (Brave-account feature) -->
+    <key>EmailAliasesEnabled</key>
+    <false/>
+
+    <!-- Brave Playlist -->
+    <key>BravePlaylistEnabled</key>
+    <false/>
+
+    <!-- Price tracking -->
+    <key>ShoppingListEnabled</key>
+    <false/>
+
     <!-- === PRIVACY === -->
 
     <!-- Block third-party cookies -->
     <key>BlockThirdPartyCookies</key>
     <true/>
+
+    <!-- Send the Global Privacy Control (Sec-GPC) header -->
+    <key>BraveGlobalPrivacyControlEnabled</key>
+    <true/>
+
+    <!-- Sites cannot query whether payment methods are saved -->
+    <key>PaymentMethodQueryEnabled</key>
+    <false/>
 
     <!-- Disable search suggestions (prevents keystroke leakage) -->
     <key>SearchSuggestEnabled</key>
@@ -123,6 +147,22 @@ sudo tee "$POLICY_FILE" > /dev/null << 'PLIST'
 
     <!-- Disable the daily usage ping -->
     <key>BraveStatsPingEnabled</key>
+    <false/>
+
+    <!-- Web Discovery (shares anonymised browsing data with Brave Search) -->
+    <key>BraveWebDiscoveryEnabled</key>
+    <false/>
+
+    <!-- Wayback Machine lookups (sends 404 URLs to archive.org) -->
+    <key>BraveWaybackMachineEnabled</key>
+    <false/>
+
+    <!-- Remote suggestions on navigation errors -->
+    <key>AlternateErrorPagesEnabled</key>
+    <false/>
+
+    <!-- Remote password leak checks -->
+    <key>PasswordLeakDetectionEnabled</key>
     <false/>
 
     <!-- === SECURITY === -->
