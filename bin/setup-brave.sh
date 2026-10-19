@@ -81,18 +81,14 @@ sudo tee "$POLICY_FILE" > /dev/null << 'PLIST'
     <key>BraveAIChatEnabled</key>
     <false/>
 
-    <!-- Brave News -->
-    <key>BraveNewsEnabled</key>
-    <false/>
+    <!-- Brave News (the policy is BraveNewsDisabled; BraveNewsEnabled does not exist) -->
+    <key>BraveNewsDisabled</key>
+    <true/>
 
     <!-- === PRIVACY === -->
 
     <!-- Block third-party cookies -->
     <key>BlockThirdPartyCookies</key>
-    <true/>
-
-    <!-- Send Do Not Track -->
-    <key>EnableDoNotTrack</key>
     <true/>
 
     <!-- Disable search suggestions (prevents keystroke leakage) -->
@@ -121,6 +117,14 @@ sudo tee "$POLICY_FILE" > /dev/null << 'PLIST'
     <key>SpellCheckServiceEnabled</key>
     <false/>
 
+    <!-- Disable Brave P3A (privacy-preserving product analytics) -->
+    <key>BraveP3AEnabled</key>
+    <false/>
+
+    <!-- Disable the daily usage ping -->
+    <key>BraveStatsPingEnabled</key>
+    <false/>
+
     <!-- === SECURITY === -->
 
     <!-- Disable Chrome Remote Desktop firewall traversal -->
@@ -133,18 +137,11 @@ sudo tee "$POLICY_FILE" > /dev/null << 'PLIST'
     <key>BackgroundModeEnabled</key>
     <false/>
 
-    <!-- Disable tab hover card images (reduces memory) -->
-    <key>TabHoverCardImagesSettings</key>
-    <integer>0</integer>
 
     <!-- === POWER USER === -->
 
-    <!-- Disable first-run welcome flow -->
-    <key>SuppressFirstRunDefaultBrowserPrompt</key>
-    <true/>
-
-    <!-- Restore downloads bar behavior -->
-    <key>DownloadBubbleEnabled</key>
+    <!-- Never ask to become the default browser -->
+    <key>DefaultBrowserSettingEnabled</key>
     <false/>
 
     <!-- Allow incognito -->
@@ -212,6 +209,7 @@ patch_profile() {
         .devtools.preferences.cssSourceMapsEnabled = "true" |
 
         # === PRIVACY EXTRAS ===
+        .enable_do_not_track = true |
         .autofill.credit_card_enabled = false |
         .autofill.profile_enabled = false |
         .webrtc.ip_handling_policy = "default_public_interface_only" |
