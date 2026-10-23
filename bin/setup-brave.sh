@@ -81,8 +81,24 @@ sudo tee "$POLICY_FILE" > /dev/null << 'PLIST'
     <key>BraveAIChatEnabled</key>
     <false/>
 
-    <!-- Brave News -->
-    <key>BraveNewsEnabled</key>
+    <!-- Brave News (the policy is BraveNewsDisabled; BraveNewsEnabled does not exist) -->
+    <key>BraveNewsDisabled</key>
+    <true/>
+
+    <!-- Local/on-device AI (semantic history search, model downloads) -->
+    <key>BraveLocalAIEnabled</key>
+    <false/>
+
+    <!-- Email Aliases (Brave-account feature) -->
+    <key>EmailAliasesEnabled</key>
+    <false/>
+
+    <!-- Brave Playlist -->
+    <key>BravePlaylistEnabled</key>
+    <false/>
+
+    <!-- Price tracking -->
+    <key>ShoppingListEnabled</key>
     <false/>
 
     <!-- === PRIVACY === -->
@@ -91,9 +107,13 @@ sudo tee "$POLICY_FILE" > /dev/null << 'PLIST'
     <key>BlockThirdPartyCookies</key>
     <true/>
 
-    <!-- Send Do Not Track -->
-    <key>EnableDoNotTrack</key>
+    <!-- Send the Global Privacy Control (Sec-GPC) header -->
+    <key>BraveGlobalPrivacyControlEnabled</key>
     <true/>
+
+    <!-- Sites cannot query whether payment methods are saved -->
+    <key>PaymentMethodQueryEnabled</key>
+    <false/>
 
     <!-- Disable search suggestions (prevents keystroke leakage) -->
     <key>SearchSuggestEnabled</key>
@@ -121,6 +141,30 @@ sudo tee "$POLICY_FILE" > /dev/null << 'PLIST'
     <key>SpellCheckServiceEnabled</key>
     <false/>
 
+    <!-- Disable Brave P3A (privacy-preserving product analytics) -->
+    <key>BraveP3AEnabled</key>
+    <false/>
+
+    <!-- Disable the daily usage ping -->
+    <key>BraveStatsPingEnabled</key>
+    <false/>
+
+    <!-- Web Discovery (shares anonymised browsing data with Brave Search) -->
+    <key>BraveWebDiscoveryEnabled</key>
+    <false/>
+
+    <!-- Wayback Machine lookups (sends 404 URLs to archive.org) -->
+    <key>BraveWaybackMachineEnabled</key>
+    <false/>
+
+    <!-- Remote suggestions on navigation errors -->
+    <key>AlternateErrorPagesEnabled</key>
+    <false/>
+
+    <!-- Remote password leak checks -->
+    <key>PasswordLeakDetectionEnabled</key>
+    <false/>
+
     <!-- === SECURITY === -->
 
     <!-- Disable Chrome Remote Desktop firewall traversal -->
@@ -133,18 +177,11 @@ sudo tee "$POLICY_FILE" > /dev/null << 'PLIST'
     <key>BackgroundModeEnabled</key>
     <false/>
 
-    <!-- Disable tab hover card images (reduces memory) -->
-    <key>TabHoverCardImagesSettings</key>
-    <integer>0</integer>
 
     <!-- === POWER USER === -->
 
-    <!-- Disable first-run welcome flow -->
-    <key>SuppressFirstRunDefaultBrowserPrompt</key>
-    <true/>
-
-    <!-- Restore downloads bar behavior -->
-    <key>DownloadBubbleEnabled</key>
+    <!-- Never ask to become the default browser -->
+    <key>DefaultBrowserSettingEnabled</key>
     <false/>
 
     <!-- Allow incognito -->
@@ -212,6 +249,7 @@ patch_profile() {
         .devtools.preferences.cssSourceMapsEnabled = "true" |
 
         # === PRIVACY EXTRAS ===
+        .enable_do_not_track = true |
         .autofill.credit_card_enabled = false |
         .autofill.profile_enabled = false |
         .webrtc.ip_handling_policy = "default_public_interface_only" |

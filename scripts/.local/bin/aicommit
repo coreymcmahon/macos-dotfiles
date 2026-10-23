@@ -48,7 +48,7 @@ fi
 
 # Write to temp file
 TMPFILE=$(mktemp)
-trap "rm -f $TMPFILE" EXIT
+trap 'rm -f "$TMPFILE"' EXIT
 printf '%s\n' "$MSG" > "$TMPFILE"
 printf '\n# Save to commit, clear file to abort\n' >> "$TMPFILE"
 
