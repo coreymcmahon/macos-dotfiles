@@ -18,6 +18,11 @@ else
     echo "Homebrew already installed"
 fi
 
+# Homebrew 7+ refuses to load formulae from third-party taps until they are trusted
+if brew trust --help >/dev/null 2>&1; then
+    brew trust --taps nikitabobko/tap stripe/stripe-cli
+fi
+
 # Install packages from Brewfile
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 echo "Installing packages from Brewfile..."

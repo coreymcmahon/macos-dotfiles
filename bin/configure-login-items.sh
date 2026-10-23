@@ -2,12 +2,14 @@
 set -euo pipefail
 
 ##
-# Configure apps to start automatically on login
+# Configure apps to start automatically on login.
+# AeroSpace isn't listed - it registers itself via `start-at-login` in aerospace.toml.
 
 APPS=(
     "/Applications/1Password.app"
     "/Applications/Dropbox.app"
-    "/Applications/AeroSpace.app"
+    "/Applications/Herd.app"
+    "/Applications/DBngin.app"
 )
 
 for app in "${APPS[@]}"; do

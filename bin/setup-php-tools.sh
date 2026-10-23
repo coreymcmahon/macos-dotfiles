@@ -3,9 +3,14 @@
 ##
 # Install global PHP tooling used by the Neovim config.
 #
-# Composer is expected to already be on PATH. On this setup it comes from
-# Laravel Herd; `brew install composer` also works. Missing composer is not
-# fatal - the rest of the install should still complete.
+# Composer comes from Laravel Herd (`brew install composer` also works). Missing
+# composer is not fatal - the rest of the install should still complete.
+
+# Herd's bin dir isn't on PATH until a new shell picks up .zshrc, so add it here
+HERD_BIN="$HOME/Library/Application Support/Herd/bin"
+if [ -d "$HERD_BIN" ]; then
+    PATH="$HERD_BIN:$PATH"
+fi
 
 if ! command -v composer >/dev/null 2>&1; then
     echo "Warning: composer not found on PATH; skipping PHP tooling."

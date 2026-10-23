@@ -157,7 +157,7 @@ defaults write com.apple.AppleMultitouchTrackpad Clicking 1
 # Secondary click (two-finger)
 defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-defaults -currentHost write -g com.apple.trackpad.enableSecondaryClick -bool true :contentReference[oaicite:3]{index=3}
+defaults -currentHost write -g com.apple.trackpad.enableSecondaryClick -bool true
 
 # Mouse and trackpad speed
 defaults write -g com.apple.mouse.scaling -float 2.0
