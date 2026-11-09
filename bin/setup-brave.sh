@@ -263,11 +263,7 @@ patch_profile() {
 
 log_info "Patching per-profile preferences..."
 
-if [[ -d "$BRAVE_DIR/Default" ]]; then
-    patch_profile "$BRAVE_DIR/Default"
-fi
-
-for profile in "$BRAVE_DIR"/Profile\ *; do
+for profile in "$BRAVE_DIR/Default" "$BRAVE_DIR"/Profile\ *; do
     if [[ -d "$profile" ]]; then
         patch_profile "$profile"
     fi

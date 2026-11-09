@@ -7,12 +7,12 @@
 -- Pointing `typescript.tsdk` at the global lib directory fixes that. A
 -- project-local typescript, when present, still takes precedence.
 local function global_tsdk()
-  local out = vim.fn.system({ "npm", "root", "-g" })
-  if vim.v.shell_error ~= 0 then
+  local root = require("npm-global-root")()
+  if not root then
     return nil
   end
 
-  local tsdk = vim.trim(out) .. "/typescript/lib"
+  local tsdk = root .. "/typescript/lib"
   return vim.uv.fs_stat(tsdk) and tsdk or nil
 end
 

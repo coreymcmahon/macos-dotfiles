@@ -7,12 +7,12 @@
 -- The plugin location is resolved from the npm global root rather than
 -- hardcoded, because Mise moves it per Node version.
 local function vue_language_server_path()
-  local out = vim.fn.system({ "npm", "root", "-g" })
-  if vim.v.shell_error ~= 0 then
+  local root = require("npm-global-root")()
+  if not root then
     return nil
   end
 
-  local path = vim.trim(out) .. "/@vue/language-server"
+  local path = root .. "/@vue/language-server"
   return vim.uv.fs_stat(path) and path or nil
 end
 

@@ -2,6 +2,11 @@
 # Variables and settings used in interactive shells
 
 ###
+# Homebrew on Apple Silicon. path_helper in /etc/zprofile runs after .zshenv and
+# puts /usr/bin first, so move Homebrew back in front, where it sits on Intel.
+path=(/opt/homebrew/bin(N/) /opt/homebrew/sbin(N/) $path)
+
+###
 # Secrets
 # - Add sensitive aliases etc. to .zshrc.secrets
 if [ -f "$HOME/.zshrc.secrets" ]; then
@@ -45,6 +50,8 @@ alias gb="git branch -v"
 alias gl="git log"
 alias pull="git pull --no-rebase origin"
 alias push="git push origin"
+alias pullm="git pull --no-rebase origin main"
+alias pushm="git push origin main"
 pullc() { git pull --no-rebase origin "$(git rev-parse --abbrev-ref HEAD)"; }
 pushc() { git push origin "$(git rev-parse --abbrev-ref HEAD)"; }
 alias ppc="pullc && pushc"

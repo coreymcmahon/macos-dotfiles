@@ -35,6 +35,10 @@ is_stowed() {
 
 cd "$DOTFILES_DIR"
 
+# Without a real ~/.local/bin, stow symlinks the whole directory into this repo,
+# and anything that installs there (pipx, Claude Code) writes into the working tree.
+mkdir -p "$HOME/.local/bin"
+
 for pkg in "${PACKAGES[@]}"; do
     if [[ ! -d "$pkg" ]]; then
         echo "[SKIP] Package '$pkg' not found"

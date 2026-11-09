@@ -38,7 +38,36 @@ ssh -T git@github.com
 
 ## GPG Signing Key Setup
 
-Generate a GPG key (use RSA 4096-bit):
+`git/.gitconfig` sets `user.signingkey` and turns on commit and tag signing, and `.zshrc` exports `GPG_TTY`. That leaves one step: make sure the configured key is in your keyring. Import it if you have a backup, or generate a new one if you don't.
+
+Check whether the key is already in your keyring:
+
+```bash
+gpg --list-secret-keys "$(git config --global user.signingkey)"
+```
+
+If that lists a key, skip to [Verify Setup](#verify-setup).
+
+### Option A: Import the existing key
+
+Do this if you have a backup of the key, or if the old machine is still available. Export the key there and store the file somewhere safe:
+
+```bash
+gpg --armor --export-secret-keys "$(git config --global user.signingkey)" > signing-key.asc
+```
+
+On the new machine, import it and delete the file:
+
+```bash
+gpg --import signing-key.asc
+rm signing-key.asc
+```
+
+The public key is already on GitHub, so there's nothing else to do.
+
+### Option B: Generate a new key
+
+Do this if you have no copy of the existing key. Generate a key (use RSA 4096-bit):
 
 ```bash
 gpg --full-generate-key
@@ -56,17 +85,10 @@ Export and add to GitHub (Settings → SSH and GPG keys):
 gpg --armor --export YOUR_KEY_ID | pbcopy
 ```
 
-Configure Git to use GPG signing:
+Point Git at the new key. This writes through the `~/.gitconfig` symlink into `git/.gitconfig`, so commit the change:
 
 ```bash
 git config --global user.signingkey YOUR_KEY_ID
-git config --global commit.gpgsign true
-```
-
-If you get signing errors, add to your shell config:
-
-```bash
-export GPG_TTY=$(tty)
 ```
 
 ## Verify Setup

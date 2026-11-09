@@ -40,7 +40,7 @@ return {
         lua = { "stylua" },
       },
       format_on_save = function(bufnr)
-        -- Let `:noautocmd w` skip formatting, and never fight a huge file.
+        -- Set by :FormatDisable (below); `:noautocmd w` also skips formatting.
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
           return
         end
@@ -48,7 +48,7 @@ return {
       end,
     },
     init = function()
-      -- :Format / :FormatDisable / :FormatEnable
+      -- :FormatDisable / :FormatEnable
       vim.api.nvim_create_user_command("FormatDisable", function(args)
         if args.bang then
           vim.b.disable_autoformat = true

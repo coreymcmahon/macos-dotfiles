@@ -1,7 +1,3 @@
--- space leader
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
 -- quickly hide search result with ESC
 vim.keymap.set("n", "<ESC>", ":nohlsearch<CR>:echo<CR>")
 
@@ -115,10 +111,6 @@ vim.keymap.set(
   "<cmd>vertical resize +2<cr>",
   { desc = "Increase Window Width" }
 )
-
--- Buffer navigation
-vim.keymap.set("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Previous Buffer" })
-vim.keymap.set("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 
 -- quit
 vim.keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })

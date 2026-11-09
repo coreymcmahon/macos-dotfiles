@@ -3,22 +3,30 @@ tap "stripe/stripe-cli"
 
 brew "btop"
 brew "fd"
-brew "gh"
-brew "git"
 brew "gnupg"
 brew "jq"
-brew "lua-language-server"
-brew "mise"
 brew "mysql-client"
-brew "neovim"
 brew "pipx"
 brew "ripgrep"
-brew "starship"
 brew "stow"
 brew "stripe/stripe-cli/stripe"
-brew "stylua"
-brew "tmux"
 brew "wget"
+brew "wireguard-tools"
+
+# Apple Silicon only. Homebrew no longer builds bottles for Intel, so these would
+# all compile from source there. On Intel, bin/setup-mise.sh installs prebuilt
+# binaries of the same tools instead, and git comes from the Xcode Command Line
+# Tools. Keep this list in sync with INTEL_TOOLS in bin/setup-mise.sh.
+if Hardware::CPU.arm?
+  brew "gh"
+  brew "git"
+  brew "lua-language-server"
+  brew "mise"
+  brew "neovim"
+  brew "starship"
+  brew "stylua"
+  brew "tmux"
+end
 
 cask "1password"
 cask "nikitabobko/tap/aerospace"
@@ -39,5 +47,4 @@ cask "spotify"
 cask "sublime-text"
 cask "tableplus"
 cask "visual-studio-code"
-cask "tailscale"
-cask "wireguard-tools"
+cask "tailscale-app"

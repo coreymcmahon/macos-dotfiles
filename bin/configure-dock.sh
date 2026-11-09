@@ -28,4 +28,6 @@ for app in "${APPS[@]}"; do
     fi
 done
 
-killall Dock
+# macosx-defaults.sh has just killed the Dock. If it hasn't respawned yet, killall
+# fails, which is fine: it reads the new settings when it starts.
+killall Dock || true

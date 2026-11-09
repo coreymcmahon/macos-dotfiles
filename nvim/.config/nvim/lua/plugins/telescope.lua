@@ -84,12 +84,6 @@ return {
               "build",
               "--strip-cwd-prefix",
             },
-            hidden = true,
-          },
-          live_grep = {
-            additional_args = function()
-              return { "--hidden", "--glob", "!.git/" }
-            end,
           },
           buffers = {
             sort_mru = true,

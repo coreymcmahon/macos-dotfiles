@@ -12,7 +12,7 @@ This is a macOS dotfiles repository managed with GNU Stow. Each top-level direct
 # Install everything, stow dotfiles, and configure sensible defaults
 ./install.sh
 
-# Or stow dotfiles manually (aerospace, alacritty, starship, tmux, zsh)
+# Or stow dotfiles manually (aerospace, alacritty, git, nvim, scripts, starship, tmux, zsh)
 ./bin/stow.sh
 
 # Or stow individual packages
@@ -28,7 +28,9 @@ Each directory follows Stow conventions - the internal structure mirrors where f
 
 - `aerospace/` - AeroSpace tiling window manager config (`.config/aerospace/`)
 - `alacritty/` - Alacritty terminal config (`.config/alacritty/`)
+- `git/` - Git config (`.gitconfig`) and global ignore (`.config/git/ignore`)
 - `nvim/` - Neovim configuration (`.config/nvim/`) - see the Neovim section below
+- `scripts/` - personal scripts (`.local/bin/`)
 - `starship/` - Starship prompt config (`.config/starship.toml`)
 - `tmux/` - tmux config (`.config/tmux/`)
 - `zsh/` - Zsh configuration (`.zshrc`, `.zshenv`)
@@ -36,10 +38,14 @@ Each directory follows Stow conventions - the internal structure mirrors where f
 
 ## Notes
 
+- Everything must work on both Intel (Homebrew in `/usr/local`) and Apple Silicon (Homebrew in `/opt/homebrew`) - never assume one prefix or architecture
 - Secrets go in `.zshrc.secrets` and `.zshenv.secrets` (not tracked)
-- Language runtimes (PHP, Node, tree-sitter) are managed by Mise, not nvm/asdf - see `bin/setup-mise.sh`
+- Node is managed by Mise, not nvm/asdf - see `bin/setup-mise.sh`
+- PHP and Composer come from Laravel Herd (installed via the Brewfile; `install.sh` pauses for its setup wizard), not Mise
+- Docker is provided by OrbStack - don't add the Docker Desktop cask
 - Global npm packages live in `bin/npm-globals.txt`, installed by `setup-mise.sh`
 - Homebrew packages are declared in `bin/Brewfile`
+- Homebrew no longer builds bottles for Intel, so the Brewfile's `Hardware::CPU.arm?` block (`gh`, `git`, `lua-language-server`, `mise`, `neovim`, `starship`, `stylua`, `tmux`) is Apple Silicon only. On Intel, `setup-mise.sh` installs prebuilt binaries of those via Mise (`INTEL_TOOLS`), Mise itself from its own installer, and `git` from the Xcode Command Line Tools. Keep the two lists in sync
 - AeroSpace uses vim-style navigation (alt+hjkl) with workspaces 1-9 on main monitor and A-Z on secondary
 
 ## Neovim
@@ -61,7 +67,7 @@ Conventions worth knowing before editing:
   Markdown, so `treesitter.lua` starts it explicitly via a `FileType` autocmd.
 - **No Mason.** Language servers are installed by the dotfiles - npm ones via
   `bin/npm-globals.txt`, `laravel-lsp` via `composer global require laravel/lsp`,
-  `lua-language-server` via the Brewfile. `bin/npm-globals.txt` is the source of
+  `lua-language-server` via the Brewfile (Mise on Intel). `bin/npm-globals.txt` is the source of
   truth for what `lua/plugins/lsp.lua` enables.
 - **LSP uses the native 0.11+ API** (`vim.lsp.config` / `vim.lsp.enable`), not
   `require('lspconfig').<server>.setup()`.
@@ -84,12 +90,12 @@ Everything below is installed by `./install.sh`. Where each piece comes from:
 
 | Dependency | Provided by | Needed for |
 | --- | --- | --- |
-| Neovim 0.12+ | `bin/Brewfile` | everything; `init.lua` refuses to load on older |
+| Neovim 0.12+ | `bin/Brewfile` (Apple Silicon), Mise (Intel) | everything; `init.lua` refuses to load on older |
 | `tree-sitter` CLI | `bin/npm-globals.txt` | nvim-treesitter `main` compiles parsers with it |
 | C compiler, `make` | Xcode Command Line Tools | building parsers and telescope-fzf-native |
 | `ripgrep`, `fd` | `bin/Brewfile` | Telescope grep and file pickers |
-| `lua-language-server` | `bin/Brewfile` | `lua_ls` |
-| `stylua` | `bin/Brewfile` | Lua formatting (reads `nvim/.config/nvim/stylua.toml`) |
+| `lua-language-server` | `bin/Brewfile` (Apple Silicon), Mise (Intel) | `lua_ls` |
+| `stylua` | `bin/Brewfile` (Apple Silicon), Mise (Intel) | Lua formatting (reads `nvim/.config/nvim/stylua.toml`) |
 | npm language servers | `bin/npm-globals.txt` | intelephense, vtsls, vue_ls, tailwindcss, jsonls, bashls, emmet |
 | `prettierd`, `eslint_d`, `blade-formatter` | `bin/npm-globals.txt` | conform.nvim |
 | `laravel-lsp` | `bin/setup-php-tools.sh` (composer global) | `laravel_lsp` |

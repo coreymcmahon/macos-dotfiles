@@ -1,0 +1,10 @@
+[user]
+	name = Corey McMahon
+	email = contact@coreymcmahon.com
+	# signingkey = YOUR_KEY_ID
+# [commit]
+# 	gpgsign = true
+# [tag]
+# 	gpgSign = true
+[init]
+	defaultBranch = main
